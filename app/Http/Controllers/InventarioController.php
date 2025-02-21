@@ -46,7 +46,7 @@ class InventarioController extends Controller
                 ]);
 
                 // Recargar el producto desde la base de datos para obtener el valor actualizado de final_teorico
-                $productoActualizado = PlanCompra::find($producto->id);
+                $productoActualizado = PlanCompra::where('referencia', $referencia)->first();
 
                 // Agregar el producto actualizado a la lista
                 $productosActualizados[] = $productoActualizado;
@@ -55,8 +55,6 @@ class InventarioController extends Controller
 
         // Guardar la lista de productos actualizados en la sesión
         Session::put('productos_actualizados', $productosActualizados);
-
-        
 
         // Redirigir a la página de "Orden de Compra"
         return redirect()->route('orden.compra');
