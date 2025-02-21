@@ -37,7 +37,13 @@ class InventarioController extends Controller
             // Buscar el producto por su referencia
             $producto = PlanCompra::where('referencia', $referencia)->first();
 
+            // Verificar si el producto existe
             if ($producto) {
+                // Guardar los valores antiguos para comparar
+                $consumoMrpAnterior = $producto->consumo_mrp;
+                $consumoAnterior = $producto->consumo;
+                $pedidoAnterior = $producto->pedido;
+
                 // Actualizar los campos del producto
                 $producto->update([
                     'consumo_mrp' => $datos['consumo_mrp'],
@@ -45,11 +51,18 @@ class InventarioController extends Controller
                     'pedido' => $datos['pedido'],
                 ]);
 
-                // Recargar el producto desde la base de datos para obtener el valor actualizado de final_teorico
-                $productoActualizado = PlanCompra::where('referencia', $referencia)->first();
+                // Verificar si alguno de los campos ha cambiado
+                if (
+                    $consumoMrpAnterior != $datos['consumo_mrp'] ||
+                    $consumoAnterior != $datos['consumo'] ||
+                    $pedidoAnterior != $datos['pedido']
+                ) {
+                    // Recargar el producto desde la base de datos para obtener el valor actualizado de final_teorico
+                    $productoActualizado = PlanCompra::where('referencia', $referencia)->first();
 
-                // Agregar el producto actualizado a la lista
-                $productosActualizados[] = $productoActualizado;
+                    // Agregar el producto actualizado a la lista
+                    $productosActualizados[] = $productoActualizado;
+                }
             }
         }
 
