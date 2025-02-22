@@ -66,7 +66,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: lavender">
     <!-- Botón para colapsar/expandir la barra lateral -->
     <button class="toggle-sidebar-btn" onclick="toggleSidebar()">☰</button>
 
@@ -76,9 +76,9 @@
             <i class="fas fa-box"></i>
             <span>Inventario</span>
         </a>
-        <a href="{{ route('orden.compra') }}">
-            <i class="fas fa-shopping-cart"></i>
-            <span>Orden de Compra</span>
+        <a href="{{ route('inventario.crear') }}">
+            <i class="fas fa-edit"></i>
+            <span>Crear Producto</span>
         </a>
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt"></i>

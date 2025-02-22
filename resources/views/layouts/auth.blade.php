@@ -31,7 +31,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: lavender">
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid justify-content-center">

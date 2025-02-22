@@ -7,33 +7,53 @@
         <h1>Crear Nuevo Producto</h1>
         <form action="{{ route('inventario.guardar') }}" method="POST">
             @csrf
-            <div class="mb-3">
-                <label for="materia_prima" class="form-label">Materia Prima</label>
-                <input type="text" class="form-control" id="materia_prima" name="materia_prima" required>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="materia_prima" class="form-label">Materia Prima</label>
+                        <input type="text" class="form-control" id="materia_prima" name="materia_prima" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="cantidad" class="form-label">Cantidad</label>
+                        <input type="text" class="form-control" id="cantidad" name="cantidad" required>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="inventario_actual" class="form-label">Inventario Actual</label>
-                <input type="number" class="form-control" id="inventario_actual" name="inventario_actual" required>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="inventario_actual" class="form-label">Inventario Actual</label>
+                        <input type="number" class="form-control" id="inventario_actual" name="inventario_actual" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="stock_seguridad" class="form-label">Stock de Seguridad</label>
+                        <input type="number" class="form-control" id="stock_seguridad" name="stock_seguridad" required>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="cantidad" class="form-label">Cantidad</label>
-                <input type="text" class="form-control" id="cantidad" name="cantidad" required>
-            </div>
-            <div class="mb-3">
-                <label for="stock_seguridad" class="form-label">Stock de Seguridad</label>
-                <input type="number" class="form-control" id="stock_seguridad" name="stock_seguridad" required>
-            </div>
-            <div class="mb-3">
-                <label for="consumo_mrp" class="form-label">Consumo MRP</label>
-                <input type="number" class="form-control" id="consumo_mrp" name="consumo_mrp" required>
-            </div>
-            <div class="mb-3">
-                <label for="consumo" class="form-label">Consumo</label>
-                <input type="number" class="form-control" id="consumo" name="consumo" required>
-            </div>
-            <div class="mb-3">
-                <label for="pedido" class="form-label">Pedido</label>
-                <input type="number" class="form-control" id="pedido" name="pedido" required>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="consumo_mrp" class="form-label">Consumo MRP</label>
+                        <input type="number" class="form-control" id="consumo_mrp" name="consumo_mrp" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="consumo" class="form-label">Consumo</label>
+                        <input type="number" class="form-control" id="consumo" name="consumo" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="pedido" class="form-label">Pedido</label>
+                        <input type="number" class="form-control" id="pedido" name="pedido" required>
+                    </div>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a href="{{ route('inventario') }}" class="btn btn-secondary">Cancelar</a>
