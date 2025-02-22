@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Nuevo Producto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+@extends('layouts.dashboard')
+
+@section('title', 'Crear producto')
+
+@section('content')
     <div class="container mt-5">
         <h1>Crear Nuevo Producto</h1>
         <form action="{{ route('inventario.guardar') }}" method="POST">
@@ -43,5 +39,4 @@
             <a href="{{ route('inventario') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
-</body>
-</html>
+@endsection
