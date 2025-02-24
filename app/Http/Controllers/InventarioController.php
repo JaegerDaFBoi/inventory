@@ -22,60 +22,44 @@ class InventarioController extends Controller
 
     public function actualizar(Request $request)
     {
-        // Verificar si el usuario ha iniciado sesión
         if (!Session::has('usuario_id')) {
             return redirect()->route('login')->withErrors([
                 'acceso' => 'Debes iniciar sesión para acceder a esta página.',
             ]);
         }
 
-        // Recopilar los productos actualizados
         $productosActualizados = [];
 
-        // Recorrer los datos enviados desde el formulario
         foreach ($request->productos as $referencia => $datos) {
-            // Buscar el producto por su referencia
+
             $producto = PlanCompra::where('referencia', $referencia)->first();
+            
 
-            // Verificar si el producto existe
             if ($producto) {
-                // Guardar los valores antiguos para comparar
-                $consumoMrpAnterior = $producto->consumo_mrp;
-                $consumoAnterior = $producto->consumo;
-                $pedidoAnterior = $producto->pedido;
-
-                // Actualizar los campos del producto
+                
+  
                 $producto->update([
                     'consumo_mrp' => $datos['consumo_mrp'],
                     'consumo' => $datos['consumo'],
                     'pedido' => $datos['pedido'],
                 ]);
-
-                // Verificar si alguno de los campos ha cambiado
                 if (
-                    $consumoMrpAnterior != $datos['consumo_mrp'] ||
-                    $consumoAnterior != $datos['consumo'] ||
-                    $pedidoAnterior != $datos['pedido']
+                    $datos['consumo_mrp'] != 0 ||
+                    $datos['consumo']  != 0 ||
+                    $datos['pedido']  != 0
                 ) {
-                    // Recargar el producto desde la base de datos para obtener el valor actualizado de final_teorico
-                    $productoActualizado = PlanCompra::where('referencia', $referencia)->first();
-
-                    // Agregar el producto actualizado a la lista
+                    $productoActualizado = $producto->refresh();
                     $productosActualizados[] = $productoActualizado;
                 }
             }
         }
-
-        // Guardar la lista de productos actualizados en la sesión
         Session::put('productos_actualizados', $productosActualizados);
 
-        // Redirigir a la página de "Orden de Compra"
         return redirect()->route('orden.compra');
     }
 
     public function mostrarFormularioCreacion()
     {
-        // Verificar si el usuario ha iniciado sesión
         if (!Session::has('usuario_id')) {
             return redirect()->route('login')->withErrors([
                 'acceso' => 'Debes iniciar sesión para acceder a esta página.',
@@ -87,51 +71,41 @@ class InventarioController extends Controller
 
     public function crear(Request $request)
     {
-        // Verificar si el usuario ha iniciado sesión
         if (!Session::has('usuario_id')) {
             return redirect()->route('login')->withErrors([
                 'acceso' => 'Debes iniciar sesión para acceder a esta página.',
             ]);
         }
 
-        // Validar los datos del formulario
         $request->validate([
             'materia_prima' => 'required|string|max:50',
             'inventario_actual' => 'required|integer|min:0',
             'cantidad' => 'required|string|max:50',
             'stock_seguridad' => 'required|integer|min:0',
-            'consumo_mrp' => 'required|integer|min:0',
-            'consumo' => 'required|integer|min:0',
-            'pedido' => 'required|integer|min:0',
         ]);
 
-        // Obtener la última referencia de la tabla plan_compras
         $ultimaReferencia = PlanCompra::orderBy('referencia', 'desc')->first();
 
-        // Extraer el número de la última referencia
         $numero = 0;
         if ($ultimaReferencia) {
-            $ultimoNumero = substr($ultimaReferencia->referencia, -2); // Extraer los últimos 2 dígitos
-            $numero = intval($ultimoNumero); // Convertir a entero
+            $ultimoNumero = substr($ultimaReferencia->referencia, -2); 
+            $numero = intval($ultimoNumero); 
         }
 
-        // Generar la nueva referencia
-        $nuevoNumero = str_pad($numero + 1, 2, '0', STR_PAD_LEFT); // Incrementar y formatear a 2 dígitos
-        $nuevaReferencia = '096N0' . $nuevoNumero; // Concatenar con el prefijo
+        $nuevoNumero = str_pad($numero + 1, 2, '0', STR_PAD_LEFT); 
+        $nuevaReferencia = '096N0' . $nuevoNumero; 
 
-        // Crear el nuevo producto
         PlanCompra::create([
             'referencia' => $nuevaReferencia,
             'materia_prima' => $request->materia_prima,
             'inventario_actual' => $request->inventario_actual,
             'cantidad' => $request->cantidad,
             'stock_seguridad' => $request->stock_seguridad,
-            'consumo_mrp' => $request->consumo_mrp,
-            'consumo' => $request->consumo,
-            'pedido' => $request->pedido,
+            'consumo_mrp' => 0,
+            'consumo' => 0,
+            'pedido' => 0,
         ]);
 
-        // Redirigir a la página de inventario con un mensaje de éxito
         return redirect()->route('inventario')->with('success', 'Producto creado exitosamente.');
     }
 }

@@ -56,14 +56,14 @@
         </form>
     </div>
     <script>
-        // Habilitar el botón "Guardar Cambios" cuando se modifique algún campo
+
         document.addEventListener('DOMContentLoaded', function() {
             const inputFields = document.querySelectorAll('.input-field');
             const saveChangesBtn = document.getElementById('saveChangesBtn');
 
             inputFields.forEach(input => {
                 input.addEventListener('input', () => {
-                    saveChangesBtn.disabled = false; // Habilitar el botón
+                    saveChangesBtn.disabled = false; 
                 });
             });
         });
@@ -73,7 +73,6 @@
             const inputFields = document.querySelectorAll('.input-field');
             const saveChangesBtn = document.getElementById('saveChangesBtn');
     
-            // Guardar los valores iniciales de los campos
             const initialValues = {};
             inputFields.forEach(input => {
                 initialValues[input.name] = input.value;
@@ -81,9 +80,8 @@
     
             inputFields.forEach(input => {
                 input.addEventListener('input', () => {
-                    // Verificar si algún campo ha cambiado
                     const hasChanges = Array.from(inputFields).some(input => input.value !== initialValues[input.name]);
-                    saveChangesBtn.disabled = !hasChanges; // Habilitar o deshabilitar el botón
+                    saveChangesBtn.disabled = !hasChanges; 
                 });
             });
         });

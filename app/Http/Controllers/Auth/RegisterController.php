@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Credencial;
-use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -28,12 +27,10 @@ class RegisterController extends Controller
             'correo_electronico' => $request->correo_electronico,
         ]);
 
-        $credencial = Credencial::create([
+        Credencial::create([
             'id_usuario' => $usuario->id,
             'contraseña' => $request->contraseña, 
         ]);
-
-        var_dump($credencial);
 
         return redirect()->route('registro')->with('success', 'Usuario registrado exitosamente.');
     }

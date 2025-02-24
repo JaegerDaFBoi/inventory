@@ -23,7 +23,7 @@
             transition: width 0.3s;
         }
         .sidebar.collapsed {
-            width: 60px; /* Ancho colapsado */
+            width: 60px; 
         }
         .sidebar a {
             padding: 10px 15px;
@@ -32,14 +32,14 @@
             color: #fff;
             display: flex;
             align-items: center;
-            white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+            white-space: nowrap; 
         }
         .sidebar a i {
             margin-right: 10px;
-            width: 20px; /* Ancho fijo para los iconos */
+            width: 20px; 
         }
         .sidebar.collapsed a span {
-            display: none; /* Oculta el texto cuando la barra está colapsada */
+            display: none; 
         }
         .sidebar a:hover {
             background-color: #495057;
@@ -50,7 +50,7 @@
             transition: margin-left 0.3s;
         }
         .content.collapsed {
-            margin-left: 60px; /* Ajusta el margen cuando la barra está colapsada */
+            margin-left: 60px; 
         }
         .toggle-sidebar-btn {
             position: fixed;
@@ -67,10 +67,8 @@
     </style>
 </head>
 <body style="background-color: lavender">
-    <!-- Botón para colapsar/expandir la barra lateral -->
     <button class="toggle-sidebar-btn" onclick="toggleSidebar()">☰</button>
 
-    <!-- Barra lateral -->
     <div class="sidebar" id="sidebar">
         <a href="{{ route('inventario') }}">
             <i class="fas fa-box"></i>
@@ -89,14 +87,12 @@
         </form>
     </div>
 
-    <!-- Contenido principal -->
     <div class="content" id="content">
         @yield('content')
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Función para colapsar/expandir la barra lateral
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const content = document.getElementById('content');

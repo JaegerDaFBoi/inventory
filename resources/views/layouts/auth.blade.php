@@ -32,7 +32,6 @@
     </style>
 </head>
 <body style="background-color: lavender">
-    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid justify-content-center">
             <a href="{{ route('login') }}" class="{{ request()->routeIs('login') ? 'active' : '' }}">Iniciar Sesión</a>
@@ -40,7 +39,6 @@
         </div>
     </nav>
 
-    <!-- Contenedor del formulario -->
     <div class="auth-container">
         @yield('content')
     </div>

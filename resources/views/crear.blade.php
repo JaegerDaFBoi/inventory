@@ -35,26 +35,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="consumo_mrp" class="form-label">Consumo MRP</label>
-                        <input type="number" class="form-control" id="consumo_mrp" name="consumo_mrp" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="consumo" class="form-label">Consumo</label>
-                        <input type="number" class="form-control" id="consumo" name="consumo" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="pedido" class="form-label">Pedido</label>
-                        <input type="number" class="form-control" id="pedido" name="pedido" required>
-                    </div>
-                </div>
-            </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a href="{{ route('inventario') }}" class="btn btn-secondary">Cancelar</a>
         </form>
